@@ -37,6 +37,7 @@ class PrintToPDFRunner < JobRunner
           @job.write_output("-" * 50)
         end
 
+        opts[:pdf_export] = true
         ead = ASpaceExport.model(:ead).from_resource(record, resource.tree(:all, mode = :sparse), opts)
         xml = ""
         ASpaceExport.stream(ead).each { |x| xml << x }
@@ -64,7 +65,7 @@ class PrintToPDFRunner < JobRunner
 
 
 end
-#from commit 32053b3
+#from commit a7306fd
 
 # Returns only records of resources, digital objects and agents that have been
 # deleted since the given timestamp. This is intended to be used by ArcFlow to

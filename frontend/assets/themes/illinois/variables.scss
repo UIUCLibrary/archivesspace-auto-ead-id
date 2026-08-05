@@ -109,6 +109,8 @@ $navbar-default-bg:                 $ilw-header-menu--background;
 $navbar-default-link-color:         $il-blue;
 $navbar-default-link-hover-color:   $il-altgeld;
 $navbar-default-link-hover-bg:      $il-white;
+$navbar-default-link-active-color:  $il-altgeld;
+$navbar-default-link-active-bg:     $il-white;
 
 //== Breadcrumbs
 //
@@ -121,20 +123,80 @@ $breadcrumb-bg: $il-storm-lighter-4;
 $panel-default-heading-bg:  $il-storm-lighter-4;
 $panel-footer-bg:           $il-storm-lighter-4;
 
+//== Forms
+//
+//##
+//** Default `.form-control` height
+$input-height-base: (20 + ($padding-base-vertical * 2) + 2);
+
+//== Buttons
+//
+//## For each of Bootstrap's buttons, define text, background and border color.
+// $btn-default-color:              #333;
+// $btn-default-bg:                 #fff;
+// $btn-default-border:             #ccc;
+
 //
 // ArchivesSpace Variables Overrides
 // --------------------------------------------------
-$theme-colors: (
-  'primary': #3a87ad,
-);
 
-$sans-font: var(--il-font-source-sans), 'PT Sans', 'Helvetica Neue', helvetica, arial, sans-serif;
-$serif-font: var(--il-font-montserrat), 'Roboto Slab', serif;
-$font-family-serif: $serif-font;
+// bootstrap 3.4 variables not available in 4.2+
+$headings-font-weight: 500 !default;
 
-$text-color: $il-storm-darker-2;
-$input-color-placeholder: #767676;
+// updated vars
+$white: white;
+//$input-border: #878787;
+//$btn-default-border: $input-border;
 
-$fi-path: 'foundation-icon-fonts';
+// deprecated bootstrap 2.x vars
+// lets phase these out
 
-$row-width: 100%;
+// $navbarBackgroundHighlight: #ffffff;
+// $navbarBackground: darken($navbarBackgroundHighlight, 5%);
+// $errorBackground: #f2dede;
+// $successBackground: #dff0d8;
+// $errorText: #b94a48;
+// $infoText: #3a87ad;
+// $successText: #468847;
+// $warningText: #c09853;
+// $inputBackground: $white;
+// $btnBackground: $white;
+// $btnBackgroundHighlight: darken($white, 10%);
+$linkColor: $link-color;
+$btnPrimaryBackground: $linkColor;
+//$tableBackgroundHover: #f5f5f5; // for hover
+//$baseLineHeight: 20px;
+$baseFontSize: $font-size-base;
+$sansFontFamily: $font-family-sans-serif;
+$baseFontFamily: $sansFontFamily;
+
+// Grays
+// -------------------------
+// $black: #000;
+// $grayDarker: #222;
+// $grayDark: #333;
+// $gray: #555;
+// $grayLight: #999;
+// $grayLighter: #eee;
+// $white: #fff;
+$bsFormControlBorderColor: #ced4da;
+$bsCoolGray: #e9ecef;
+$asFormHeadingBg: #f6f6f6;
+
+// Accent colors
+// -------------------------
+// $blue: #049cdb;
+// $blueDark: #0064cd;
+// $green: #46a546;
+// $red: #9d261d;
+// $yellow: #ffc40d;
+// $orange: #f89406;
+// $pink: #c3325f;
+// $purple: #7a43b6;
+
+// override bootstrap for accessibility
+$info: #60c2ef;
+
+:root {
+  --bs-text-body: #212529;
+}

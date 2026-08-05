@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="<%= AppConfig[:locale] %>">
+<html lang="<%= session[:locale] ? session[:locale] : AppConfig[:locale] %>">
 <head>
 	<%# mdc: new stuff, to address IE 10 and earlier issues with Bootstrap %>
 	<meta charset="utf-8"/>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link href="https://cdn.brand.illinois.edu/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+	<% if AppConfig[:pui_show_favicon] %><%= render "shared/favicon" %><% end %>
 	<title><%=  (@page_title.blank? ? '' : "#{strip_mixed_content(@page_title)} | ") %><%= t('brand.title') %></title>
 	<%= csrf_meta_tags %>
 
@@ -22,17 +22,16 @@
 	<% if AppConfig[:public_theme] != 'default' %>
 		<%= stylesheet_link_tag    'themes/illinois/application', media: 'all' %>
 	<% else %>
-		<%= stylesheet_link_tag    'application', media: 'all' %>
+		<%= stylesheet_link_tag    'application.css', media: 'all' %>
 	<% end %>
-
-	<%= javascript_include_tag 'application' %>
+	<%= javascript_include_tag 'application.js' %>
 
 	<%= render partial: 'shared/metadata' %>
 
 	<% ASUtils.find_local_directories('public/views/layout_head.html.erb').each do |template| %>
 		<% if File.exists?(template) %>
 			<!-- Begin plugin layout -->
-			<%= render :file => template %>
+			<%= render :inline => File.read(template) %>
 			<!-- End plugin layout -->
 		<% end %>
 	<% end %>
@@ -45,12 +44,12 @@
 <![endif]-->
 </head>
 
-<body>
+<body class="min-h-screen d-flex flex-column">
 
 	<% ASUtils.find_local_directories('public/views/body_top.html.erb').each do |template| %>
 		<% if File.exists?(template) %>
 			<!-- Begin plugin layout -->
-			<%= render :file => template %>
+			<%= render :inline => File.read(template) %>
 			<!-- End plugin layout -->
 		<% end %>
 	<% end %>
@@ -62,15 +61,11 @@
 		<%= render partial: 'shared/navigation' %>
 	</div>
 
-	<section id="content" class="container-fluid">
+	<section id="content" class="container-fluid mt-2 pt-2 flex-grow-1">
 		<a name="maincontent" id="maincontent"></a>
 		<%= flash_messages %>
 		<%= yield %>
 	</section>
-
-	<script  type="text/javascript" >
-		$(".upper-record-details .note-content").each(function(index, element){$(this).readmore(<%= AppConfig[:pui_readmore_max_characters] %>)});
-	</script>
 
 	<%= render partial: 'shared/footer' %>
 
@@ -87,4 +82,4 @@
 </body>
 </html>
 
-<%# from commit de65713 %>
+<%# from commit 3849e9e %>
