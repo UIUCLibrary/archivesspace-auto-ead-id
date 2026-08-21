@@ -31,14 +31,18 @@
     SHOW_IDENTIFIERS_IN_TREE = <%= AppConfig[:display_identifiers_in_largetree_container] %>;
   </script>
 
-  <%= stylesheet_link_tag    'application', media: 'all' %>
+	<% if AppConfig[:frontend_theme] != 'default' %>
+		<%= stylesheet_link_tag    "themes/#{AppConfig[:frontend_theme]}/application", media: 'all' %>
+	<% else %>
+		<%= stylesheet_link_tag    'application', media: 'all' %>
+	<% end %>
   <%= javascript_include_tag "application" %>
   <%= include_controller_js %>
 
   <% ASUtils.order_plugins(ASUtils.find_local_directories('frontend/views/layout_head.html.erb')).each do |layout| %>
     <% if File.exist?(layout) %>
       <!-- Begin plugin layout -->
-      <%= render :inline => File.read(layout) %>
+      <%= render :template => PluginHelper.relative_plugin_view_path(layout) %>
       <!-- End plugin layout -->
     <% end %>
   <% end %>
@@ -66,7 +70,7 @@
     <% ASUtils.order_plugins(ASUtils.find_local_directories('frontend/views/_shared_templates.html.erb')).each do |layout| %>
       <% if File.exist?(layout) %>
         <!-- Begin plugin layout -->
-        <%= render :inline => File.read(layout) %>
+        <%= render :template => PluginHelper.relative_plugin_view_path(layout) %>
         <!-- End plugin layout -->
       <% end %>
     <% end %>
@@ -75,4 +79,4 @@
 </body>
 </html>
 
-<%# from commit 3849e9e %>
+<%# from commit aa52c6f %>

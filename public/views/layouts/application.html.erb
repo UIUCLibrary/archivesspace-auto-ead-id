@@ -20,7 +20,7 @@
 	</script>
 
 	<% if AppConfig[:public_theme] != 'default' %>
-		<%= stylesheet_link_tag    'themes/illinois/application', media: 'all' %>
+		<%= stylesheet_link_tag    "themes/#{AppConfig[:public_theme]}/application.css", media: 'all' %>
 	<% else %>
 		<%= stylesheet_link_tag    'application.css', media: 'all' %>
 	<% end %>
@@ -29,11 +29,9 @@
 	<%= render partial: 'shared/metadata' %>
 
 	<% ASUtils.find_local_directories('public/views/layout_head.html.erb').each do |template| %>
-		<% if File.exists?(template) %>
-			<!-- Begin plugin layout -->
-			<%= render :inline => File.read(template) %>
-			<!-- End plugin layout -->
-		<% end %>
+		<!-- Begin plugin layout -->
+		<%= render :template => ViewHelper.relative_plugin_view_path(template) if File.exists?(template) %>
+		<!-- End plugin layout -->
 	<% end %>
 
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -47,11 +45,9 @@
 <body class="min-h-screen d-flex flex-column">
 
 	<% ASUtils.find_local_directories('public/views/body_top.html.erb').each do |template| %>
-		<% if File.exists?(template) %>
-			<!-- Begin plugin layout -->
-			<%= render :inline => File.read(template) %>
-			<!-- End plugin layout -->
-		<% end %>
+		<!-- Begin plugin layout -->
+		<%= render :template => ViewHelper.relative_plugin_view_path(template) if File.exists?(template) %>
+		<!-- End plugin layout -->
 	<% end %>
 
 	<%= render partial: 'shared/skipnav' %>
@@ -82,4 +78,4 @@
 </body>
 </html>
 
-<%# from commit 3849e9e %>
+<%# from commit aa52c6f %>
